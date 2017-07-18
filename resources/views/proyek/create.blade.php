@@ -48,17 +48,19 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Warna</label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="position-top-left" class="form-control demo" data-position="top left" value="#0088cc">
+                                    <input type="text" name="warna" id="saturation-demo" class="form-control demo" data-control="saturation" value="#0088cc">
                                     <span class="messages"></span>
+
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Photo</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="photo" id="photo" placeholder="Photo Kegiatan">
+                                    <input type="file" class="form-control" name="files[]" id="filer_input" multiple="multiple" placeholder="Photo Kegiatan">
                                     <span class="messages"></span>
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Keterangan</label>
                                 <div class="col-sm-10">
@@ -100,6 +102,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/spectrum/spectrum.css') }}" />
     <!-- Mini-color css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/jquery-minicolors/jquery.minicolors.css') }}" />
+    <!-- jquery file upload Frame work -->
+    <link href="{{ asset('bower_components/jquery.filer/css/jquery.filer.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bower_components/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css') }}" type="text/css" rel="stylesheet" />
+
 @endpush
 @push('jsplugins')
     <!-- j-pro js -->
@@ -108,12 +114,15 @@
     <script type="text/javascript" src="{{ asset('assets/pages/advance-elements/moment-with-locales.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 
-    <!-- Color picker js -->
-    <script type="text/javascript" src="{{ asset('bower_components/spectrum/spectrum.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/jscolor/jscolor.js') }}"></script>
     <!-- Mini-color js -->
     <script type="text/javascript" src="{{ asset('bower_components/jquery-minicolors/jquery.minicolors.min.js') }}"></script>
+    <!-- jquery file upload js -->
+    <script src="{{ asset('bower_components/jquery.filer/js/jquery.filer.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/filer/custom-filer.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/pages/filer/jquery.fileuploads.init.js') }}" type="text/javascript"></script>
 
 
-    <script type="text/javascript" src="{{ asset('assets/custom/proyek.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/custom/proyek/proyek.create.js') }}"></script>
+    
+
 @endpush

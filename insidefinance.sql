@@ -1,16 +1,3 @@
-/node_modules
-/public/bower_components
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-/.idea
-/.vagrant
-Homestead.json
-Homestead.yaml
-npm-debug.log
-.env
-
 /*
 SQLyog Ultimate v12.4.1 (64 bit)
 MySQL - 10.1.13-MariaDB : Database - db_keuangan
