@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">db_keuangan</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="tbl_alokasi" view="colnames">
+<left>1012</left>
+<top>357</top>
+<width>111</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `tbl_alokasi` (
+  `idalokasi` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idproyek` int(11) DEFAULT NULL,
+  `iditem` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idalokasi`),
+  KEY `danaproyek` (`idproyek`),
+  KEY `danaitem` (`iditem`),
+  CONSTRAINT `danaitem` FOREIGN KEY (`iditem`) REFERENCES `tbl_item` (`iditem`),
+  CONSTRAINT `danaproyek` FOREIGN KEY (`idproyek`) REFERENCES `tbl_proyek` (`idproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_coa" view="colnames">
+<left>1249</left>
+<top>664</top>
+<width>110</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `tbl_coa` (
+  `idcoa` int(11) NOT NULL AUTO_INCREMENT,
+  `parent` int(11) NOT NULL DEFAULT '0',
+  `kode` char(8) NOT NULL DEFAULT '0000',
+  `nama` varchar(255) NOT NULL DEFAULT '-',
+  `tipe` enum('db','cr') NOT NULL DEFAULT 'db',
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idcoa`),
+  KEY `parent` (`parent`),
+  CONSTRAINT `tbl_coa_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `tbl_coa` (`idcoa`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_item" view="colnames">
+<left>822</left>
+<top>514</top>
+<width>110</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `tbl_item` (
+  `iditem` int(11) NOT NULL AUTO_INCREMENT,
+  `parent` int(11) NOT NULL DEFAULT '0',
+  `nama` varchar(255) NOT NULL,
+  `harga` double DEFAULT '0',
+  `status` tinyint(4) DEFAULT '0',
+  `idsatuan` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`iditem`),
+  KEY `tbl_item_ibfk_1` (`idsatuan`),
+  KEY `tbl_item_ibfk_2` (`parent`),
+  CONSTRAINT `tbl_item_ibfk_1` FOREIGN KEY (`idsatuan`) REFERENCES `tbl_satuan` (`idsatuan`) ON UPDATE CASCADE,
+  CONSTRAINT `tbl_item_ibfk_2` FOREIGN KEY (`parent`) REFERENCES `tbl_item` (`iditem`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_koordinasi" view="colnames">
+<left>644</left>
+<top>256</top>
+<width>115</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `tbl_koordinasi` (
+  `idkoordinasi` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idproyek` int(11) DEFAULT NULL,
+  `iditem` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idkoordinasi`),
+  KEY `koorproyek` (`idproyek`),
+  KEY `kooritem` (`iditem`),
+  CONSTRAINT `kooritem` FOREIGN KEY (`iditem`) REFERENCES `tbl_item` (`iditem`),
+  CONSTRAINT `koorproyek` FOREIGN KEY (`idproyek`) REFERENCES `tbl_proyek` (`idproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_operasional" view="colnames">
+<left>449</left>
+<top>594</top>
+<width>126</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `tbl_operasional` (
+  `idoperasional` int(11) NOT NULL,
+  `nooperasional` char(1) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `keterangan` text,
+  `status` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idoperasional`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_operasional_detail" view="colnames">
+<left>632</left>
+<top>526</top>
+<width>151</width>
+<height>222</height>
+<sql_create_table>CREATE TABLE `tbl_operasional_detail` (
+  `idopsdetail` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idoperasional` int(11) DEFAULT NULL,
+  `iditem` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idopsdetail`),
+  KEY `opsdtl` (`idoperasional`),
+  KEY `opsitem` (`iditem`),
+  CONSTRAINT `opsdtl` FOREIGN KEY (`idoperasional`) REFERENCES `tbl_operasional` (`idoperasional`),
+  CONSTRAINT `opsitem` FOREIGN KEY (`iditem`) REFERENCES `tbl_item` (`iditem`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_proyek" view="colnames">
+<left>816</left>
+<top>154</top>
+<width>119</width>
+<height>299</height>
+<sql_create_table>CREATE TABLE `tbl_proyek` (
+  `idproyek` int(11) NOT NULL,
+  `noproyek` char(10) DEFAULT NULL,
+  `proyek` varchar(255) DEFAULT NULL,
+  `singkatnama` varchar(100) DEFAULT NULL,
+  `startdate` date DEFAULT NULL,
+  `duedate` date DEFAULT NULL,
+  `anggaran` double DEFAULT NULL,
+  `color` char(7) DEFAULT NULL,
+  `photo` varchar(100) DEFAULT NULL,
+  `keterangan` text,
+  `status` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_realisasi_alokasi" view="colnames">
+<left>1232</left>
+<top>143</top>
+<width>147</width>
+<height>213</height>
+<sql_create_table>CREATE TABLE `tbl_realisasi_alokasi` (
+  `idrealalok` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idrealproyek` int(11) DEFAULT NULL,
+  `idalokasi` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealalok`),
+  KEY `realproyekalok` (`idrealproyek`),
+  KEY `realalok` (`idalokasi`),
+  CONSTRAINT `realalok` FOREIGN KEY (`idalokasi`) REFERENCES `tbl_alokasi` (`idalokasi`),
+  CONSTRAINT `realproyekalok` FOREIGN KEY (`idrealproyek`) REFERENCES `tbl_realisasi_proyek` (`idrealproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_realisasi_koordinasi" view="colnames">
+<left>448</left>
+<top>19</top>
+<width>162</width>
+<height>213</height>
+<sql_create_table>CREATE TABLE `tbl_realisasi_koordinasi` (
+  `idrealkoor` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idrealproyek` int(11) DEFAULT NULL,
+  `idkoordinasi` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealkoor`),
+  KEY `realkoor` (`idkoordinasi`),
+  KEY `realproyekkoor` (`idrealproyek`),
+  CONSTRAINT `realkoor` FOREIGN KEY (`idkoordinasi`) REFERENCES `tbl_koordinasi` (`idkoordinasi`),
+  CONSTRAINT `realproyekkoor` FOREIGN KEY (`idrealproyek`) REFERENCES `tbl_realisasi_proyek` (`idrealproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_realisasi_operasional" view="colnames">
+<left>223</left>
+<top>461</top>
+<width>170</width>
+<height>213</height>
+<sql_create_table>CREATE TABLE `tbl_realisasi_operasional` (
+  `idrealops` int(11) NOT NULL,
+  `norealops` char(1) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `keterangan` text,
+  `status` tinyint(4) DEFAULT NULL,
+  `idoperasional` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealops`),
+  KEY `realops` (`idoperasional`),
+  CONSTRAINT `realops` FOREIGN KEY (`idoperasional`) REFERENCES `tbl_operasional` (`idoperasional`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_realisasi_operasional_dtl" view="colnames">
+<left>423</left>
+<top>276</top>
+<width>183</width>
+<height>195</height>
+<sql_create_table>CREATE TABLE `tbl_realisasi_operasional_dtl` (
+  `idrealopsdtl` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idrealops` int(11) DEFAULT NULL,
+  `idopsdetail` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealopsdtl`),
+  KEY `realdtlops` (`idrealops`),
+  KEY `opsdtlreal` (`idopsdetail`),
+  CONSTRAINT `opsdtlreal` FOREIGN KEY (`idopsdetail`) REFERENCES `tbl_operasional_detail` (`idopsdetail`),
+  CONSTRAINT `realdtlops` FOREIGN KEY (`idrealops`) REFERENCES `tbl_realisasi_operasional` (`idrealops`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_realisasi_proyek" view="colnames">
+<left>1014</left>
+<top>87</top>
+<width>143</width>
+<height>230</height>
+<sql_create_table>CREATE TABLE `tbl_realisasi_proyek` (
+  `idrealproyek` int(11) NOT NULL,
+  `norealisasi` char(1) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `keterangan` text,
+  `type` enum('Alokasi Dana','Biaya Koordinasi') DEFAULT 'Alokasi Dana',
+  `status` tinyint(4) DEFAULT NULL,
+  `idproyek` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealproyek`),
+  KEY `realproyek` (`idproyek`),
+  CONSTRAINT `realproyek` FOREIGN KEY (`idproyek`) REFERENCES `tbl_proyek` (`idproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tbl_satuan" view="colnames">
+<left>1034</left>
+<top>650</top>
+<width>110</width>
+<height>200</height>
+<sql_create_table>CREATE TABLE `tbl_satuan` (
+  `idsatuan` int(11) NOT NULL AUTO_INCREMENT,
+  `satuan` varchar(10) NOT NULL,
+  `keterangan` varchar(100) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idsatuan`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="users" view="colnames">
+<left>1232</left>
+<top>401</top>
+<width>145</width>
+<height>248</height>
+<sql_create_table>CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('SuperAdmin','Keuangan','TenagaAhli') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'TenagaAhli',
+  `status` tinyint(4) NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

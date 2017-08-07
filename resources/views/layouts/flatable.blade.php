@@ -42,7 +42,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <!--color css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color/color-1.css') }}" id="color" />
-
+    <style type="text/css">
+        .dataTables_length{float: left;}
+        .toolbar{float: left;}
+    </style>
 </head>
 
 <body class="menu-static">

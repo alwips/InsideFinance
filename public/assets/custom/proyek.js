@@ -140,8 +140,12 @@ var Proyek = (function() {
                     `;
                 }}
             ],
-          "order": [[3, 'asc']]
-        });    
+          "order": [[3, 'asc']],
+           "dom": 'l<"toolbar">frtip',
+           initComplete: function(){
+              $("div.toolbar").html('<button class="btn btn-success btn-tambah"><i class="icofont icofont-ui-add"></i>Tambah</button>');           
+           }
+        });
     }
     aksi.detail = () => {
         $('#dt-ajax-object tbody').on('click','a[href="#detail"]', function(e){
