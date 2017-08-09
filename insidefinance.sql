@@ -145,6 +145,28 @@ CREATE TABLE `password_resets` (
 
 /*Data for the table `password_resets` */
 
+/*Table structure for table `tbl_alokasi` */
+
+DROP TABLE IF EXISTS `tbl_alokasi`;
+
+CREATE TABLE `tbl_alokasi` (
+  `idalokasi` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idproyek` int(11) DEFAULT NULL,
+  `iditem` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idalokasi`),
+  KEY `danaproyek` (`idproyek`),
+  KEY `danaitem` (`iditem`),
+  CONSTRAINT `danaitem` FOREIGN KEY (`iditem`) REFERENCES `tbl_item` (`iditem`),
+  CONSTRAINT `danaproyek` FOREIGN KEY (`idproyek`) REFERENCES `tbl_proyek` (`idproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_alokasi` */
+
 /*Table structure for table `tbl_coa` */
 
 DROP TABLE IF EXISTS `tbl_coa`;
@@ -325,6 +347,67 @@ insert  into `tbl_item`(`iditem`,`parent`,`nama`,`harga`,`status`,`idsatuan`,`cr
 (39,18,'Ahli Kelembagaan',5000000,1,8,'2017-06-08 05:58:51','2017-06-08 05:58:51'),
 (40,18,'Operator Komputer',130000,1,27,'2017-07-04 02:22:59','2017-07-03 19:22:59');
 
+/*Table structure for table `tbl_koordinasi` */
+
+DROP TABLE IF EXISTS `tbl_koordinasi`;
+
+CREATE TABLE `tbl_koordinasi` (
+  `idkoordinasi` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idproyek` int(11) DEFAULT NULL,
+  `iditem` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idkoordinasi`),
+  KEY `koorproyek` (`idproyek`),
+  KEY `kooritem` (`iditem`),
+  CONSTRAINT `kooritem` FOREIGN KEY (`iditem`) REFERENCES `tbl_item` (`iditem`),
+  CONSTRAINT `koorproyek` FOREIGN KEY (`idproyek`) REFERENCES `tbl_proyek` (`idproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_koordinasi` */
+
+/*Table structure for table `tbl_operasional` */
+
+DROP TABLE IF EXISTS `tbl_operasional`;
+
+CREATE TABLE `tbl_operasional` (
+  `idoperasional` int(11) NOT NULL,
+  `nooperasional` char(1) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `keterangan` text,
+  `status` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idoperasional`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_operasional` */
+
+/*Table structure for table `tbl_operasional_detail` */
+
+DROP TABLE IF EXISTS `tbl_operasional_detail`;
+
+CREATE TABLE `tbl_operasional_detail` (
+  `idopsdetail` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idoperasional` int(11) DEFAULT NULL,
+  `iditem` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idopsdetail`),
+  KEY `opsdtl` (`idoperasional`),
+  KEY `opsitem` (`iditem`),
+  CONSTRAINT `opsdtl` FOREIGN KEY (`idoperasional`) REFERENCES `tbl_operasional` (`idoperasional`),
+  CONSTRAINT `opsitem` FOREIGN KEY (`iditem`) REFERENCES `tbl_item` (`iditem`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_operasional_detail` */
+
 /*Table structure for table `tbl_proyek` */
 
 DROP TABLE IF EXISTS `tbl_proyek`;
@@ -348,23 +431,112 @@ CREATE TABLE `tbl_proyek` (
 
 /*Data for the table `tbl_proyek` */
 
-/*Table structure for table `tbl_rab` */
+/*Table structure for table `tbl_realisasi_alokasi` */
 
-DROP TABLE IF EXISTS `tbl_rab`;
+DROP TABLE IF EXISTS `tbl_realisasi_alokasi`;
 
-CREATE TABLE `tbl_rab` (
-  `idrab` int(11) NOT NULL,
+CREATE TABLE `tbl_realisasi_alokasi` (
+  `idrealalok` int(11) NOT NULL,
   `nominal` double DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `keterangan` text,
-  `idproyek` int(11) DEFAULT NULL,
-  `iditem` int(11) DEFAULT NULL,
+  `idrealproyek` int(11) DEFAULT NULL,
+  `idalokasi` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`idrab`)
+  PRIMARY KEY (`idrealalok`),
+  KEY `realproyekalok` (`idrealproyek`),
+  KEY `realalok` (`idalokasi`),
+  CONSTRAINT `realalok` FOREIGN KEY (`idalokasi`) REFERENCES `tbl_alokasi` (`idalokasi`),
+  CONSTRAINT `realproyekalok` FOREIGN KEY (`idrealproyek`) REFERENCES `tbl_realisasi_proyek` (`idrealproyek`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `tbl_rab` */
+/*Data for the table `tbl_realisasi_alokasi` */
+
+/*Table structure for table `tbl_realisasi_koordinasi` */
+
+DROP TABLE IF EXISTS `tbl_realisasi_koordinasi`;
+
+CREATE TABLE `tbl_realisasi_koordinasi` (
+  `idrealkoor` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idrealproyek` int(11) DEFAULT NULL,
+  `idkoordinasi` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealkoor`),
+  KEY `realkoor` (`idkoordinasi`),
+  KEY `realproyekkoor` (`idrealproyek`),
+  CONSTRAINT `realkoor` FOREIGN KEY (`idkoordinasi`) REFERENCES `tbl_koordinasi` (`idkoordinasi`),
+  CONSTRAINT `realproyekkoor` FOREIGN KEY (`idrealproyek`) REFERENCES `tbl_realisasi_proyek` (`idrealproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_realisasi_koordinasi` */
+
+/*Table structure for table `tbl_realisasi_operasional` */
+
+DROP TABLE IF EXISTS `tbl_realisasi_operasional`;
+
+CREATE TABLE `tbl_realisasi_operasional` (
+  `idrealops` int(11) NOT NULL,
+  `norealops` char(1) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `keterangan` text,
+  `status` tinyint(4) DEFAULT NULL,
+  `idoperasional` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealops`),
+  KEY `realops` (`idoperasional`),
+  CONSTRAINT `realops` FOREIGN KEY (`idoperasional`) REFERENCES `tbl_operasional` (`idoperasional`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_realisasi_operasional` */
+
+/*Table structure for table `tbl_realisasi_operasional_dtl` */
+
+DROP TABLE IF EXISTS `tbl_realisasi_operasional_dtl`;
+
+CREATE TABLE `tbl_realisasi_operasional_dtl` (
+  `idrealopsdtl` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idrealops` int(11) DEFAULT NULL,
+  `idopsdetail` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealopsdtl`),
+  KEY `realdtlops` (`idrealops`),
+  KEY `opsdtlreal` (`idopsdetail`),
+  CONSTRAINT `opsdtlreal` FOREIGN KEY (`idopsdetail`) REFERENCES `tbl_operasional_detail` (`idopsdetail`),
+  CONSTRAINT `realdtlops` FOREIGN KEY (`idrealops`) REFERENCES `tbl_realisasi_operasional` (`idrealops`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_realisasi_operasional_dtl` */
+
+/*Table structure for table `tbl_realisasi_proyek` */
+
+DROP TABLE IF EXISTS `tbl_realisasi_proyek`;
+
+CREATE TABLE `tbl_realisasi_proyek` (
+  `idrealproyek` int(11) NOT NULL,
+  `norealisasi` char(1) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `keterangan` text,
+  `type` enum('Alokasi Dana','Biaya Koordinasi') DEFAULT 'Alokasi Dana',
+  `status` tinyint(4) DEFAULT NULL,
+  `idproyek` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrealproyek`),
+  KEY `realproyek` (`idproyek`),
+  CONSTRAINT `realproyek` FOREIGN KEY (`idproyek`) REFERENCES `tbl_proyek` (`idproyek`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_realisasi_proyek` */
 
 /*Table structure for table `tbl_satuan` */
 

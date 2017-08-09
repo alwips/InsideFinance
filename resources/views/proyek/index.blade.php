@@ -16,7 +16,15 @@
         <strong>{{ session('flash_message') }}</strong>
     </div>
 @endif
-
+                                    <div class="row modal-mob-btn">
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#sign-in-modal">Tambah</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-inverse btn-lg btn-block" data-toggle="modal" data-target="#pwd-recovery">Download</button>
+                                        </div>
+                                    </div>
+                                    <hr>
                                 <div class="table-responsive dt-responsive">
                                     <table id="dt-ajax-object" class="table table-striped table-bordered nowrap">
                                         <thead>
@@ -60,9 +68,6 @@
                                     </div>
                                   </div>               
                                 </div>
-
-
-
 @endsection
 
 @push('cssplugins')
