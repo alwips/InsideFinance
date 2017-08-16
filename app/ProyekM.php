@@ -11,5 +11,5 @@ class ProyekM extends Model
 
     protected $primaryKey = 'idproyek';
 
-    protected $fillable = ['noproyek', 'proyek', 'singkatnama', 'startdate', 'duedate', 'anggaran', 'photo', 'keterangan', 'status'];
+    protected $fillable = ['noproyek', 'proyek', 'singkatnama', 'startdate', 'duedate', 'anggaran', 'color', 'photo', 'keterangan', 'status'];
 }

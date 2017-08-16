@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.4.1 (64 bit)
-MySQL - 10.1.13-MariaDB : Database - db_keuangan
+MySQL - 10.1.21-MariaDB : Database - db_keuangan
 *********************************************************************
 */
 
@@ -15,6 +15,32 @@ MySQL - 10.1.13-MariaDB : Database - db_keuangan
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_keuangan` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `db_keuangan`;
+
+/*Table structure for table `calendar_events` */
+
+DROP TABLE IF EXISTS `calendar_events`;
+
+CREATE TABLE `calendar_events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text,
+  `start` datetime DEFAULT NULL,
+  `end` datetime DEFAULT NULL,
+  `is_all_day` tinyint(1) DEFAULT NULL,
+  `background_color` varchar(10) DEFAULT NULL,
+  `userid` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+/*Data for the table `calendar_events` */
+
+insert  into `calendar_events`(`id`,`title`,`start`,`end`,`is_all_day`,`background_color`,`userid`,`created_at`,`updated_at`) values 
+(1,'Hmm','2017-08-21 08:00:00','2018-09-06 12:35:00',0,'#9100ff',1,'2017-08-15 03:50:29','2017-08-15 06:20:24'),
+(2,'haha','2017-08-21 08:00:00','2017-08-15 19:00:00',0,'#ffe07a',1,'2017-08-15 03:52:54','2017-08-15 06:19:20'),
+(3,'asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf&nbsp;','2017-08-15 13:18:00','2017-08-15 14:18:00',0,'#9c1f1f',1,'2017-08-15 06:18:56','2017-08-15 15:35:30'),
+(4,'<p><b>Membuat dan mencari yang tidak ada :</b></p><ul><li>React JS</li><li>Laravel React JS</li><li>Laravel Angular JS</li><li>Web Hosting</li></ul>','2017-08-15 19:17:00','2017-08-15 19:17:00',0,'#ff0000',2,'2017-08-15 12:18:19','2017-08-15 12:19:32'),
+(5,'<p>Launching <b>Aplikasi Logbook</b>, dan dihostingkan dengan nama domain&nbsp;<a href=\"http://logbook.insidestudio.id\">http://logbook.insidestudio.id</a><a href=\"http://logbook.insidestudio.id\" target=\"_blank\"></a>&nbsp;</p>','2017-08-16 09:54:00','2017-08-16 12:54:00',0,'#a2b00e',1,'2017-08-16 02:56:37','2017-08-16 02:56:37');
 
 /*Table structure for table `migrations` */
 
@@ -283,6 +309,29 @@ insert  into `tbl_coa`(`idcoa`,`parent`,`kode`,`nama`,`tipe`,`status`,`created_a
 (97,3,'1002-1','Kas Kecil','db',1,'2017-06-05 07:28:44','2017-06-05 07:28:44'),
 (98,18,'1254','PPh 21 Perorangan','db',1,'2017-06-05 07:36:51','2017-06-05 07:36:51');
 
+/*Table structure for table `tbl_document` */
+
+DROP TABLE IF EXISTS `tbl_document`;
+
+CREATE TABLE `tbl_document` (
+  `iddocument` int(11) NOT NULL AUTO_INCREMENT,
+  `kategori` varchar(20) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`iddocument`)
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_document` */
+
+insert  into `tbl_document`(`iddocument`,`kategori`,`type`,`path`,`status`,`created_at`,`updated_at`) values 
+(62,'kegiatan','gambar','kegiatan/pOLMNBny6HhK55o9jIIIGVxoqseIL4tG4QlrUYzN.jpeg',NULL,'2017-08-14 15:31:18','2017-08-14 15:31:18'),
+(63,'kegiatan','gambar','kegiatan/rHYwfT8fAELBA8pgFzH8JirKBvPxdtAYn3P6JxY6.jpeg',NULL,'2017-08-14 15:31:18','2017-08-14 15:31:18'),
+(64,'kegiatan','gambar','kegiatan/OQHUo9UcdXh6DZ5BmhR2u0Euv7x86NUwFazdRaOr.jpeg',0,'2017-08-14 16:26:04','2017-08-14 16:26:04'),
+(65,'kegiatan','gambar','kegiatan/5h5GUFgI6iHXFSO0nBn6qxIuxZo4fMgyUpWz1chM.jpeg',0,'2017-08-14 16:26:04','2017-08-14 16:26:04');
+
 /*Table structure for table `tbl_item` */
 
 DROP TABLE IF EXISTS `tbl_item`;
@@ -430,6 +479,24 @@ CREATE TABLE `tbl_proyek` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `tbl_proyek` */
+
+/*Table structure for table `tbl_rab` */
+
+DROP TABLE IF EXISTS `tbl_rab`;
+
+CREATE TABLE `tbl_rab` (
+  `idrab` int(11) NOT NULL,
+  `nominal` double DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `keterangan` text,
+  `idproyek` int(11) DEFAULT NULL,
+  `iditem` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idrab`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tbl_rab` */
 
 /*Table structure for table `tbl_realisasi_alokasi` */
 
@@ -591,7 +658,7 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`name`,`email`,`username`,`password`,`role`,`status`,`remember_token`,`created_at`,`updated_at`) values 
-(1,'Alwi Permana Sutrisna','alwips@gmail.com','alwips','$2y$10$a2mhbdX1zMnXGxQPUUVxw.wn.xECPHiqkU9nrethADf8NtC10IfKu','TenagaAhli',1,'Ld8t6NGec18tnrhInMp3NMWHOD8ruwV40n6JTFQ6jySKn9fP5HCYxHKvQ7Mk','2017-05-19 23:19:56','2017-06-06 16:18:25'),
+(1,'Alwi Permana Sutrisna','alwips@gmail.com','alwips','$2y$10$a2mhbdX1zMnXGxQPUUVxw.wn.xECPHiqkU9nrethADf8NtC10IfKu','SuperAdmin',1,'u26dPDP0vxMYvOk8ESMgr61nBqt0tf2zSvyyXb8AgnRGAiG3FFUcJwjrlbAg','2017-05-19 23:19:56','2017-06-06 16:18:25'),
 (2,'Administrator','admin@admin.com','admin','$2y$10$dxDeJkJyVw987kOYc/HzW.wSa5nasvECQTvtlO3oZn1QWPG1lEdBK','SuperAdmin',1,'vv2mvXV1P2q63JEEpFfBLTRfC26qahYrlHo4NI34kr5qct0pA3F48VL5r7lL','2017-05-20 03:23:45','2017-06-06 16:18:26'),
 (3,'Tri Nursito','tri.nursito@gmail.com','citeng','$2y$10$wrZKclZttKvmRAvnz.THyeBQ.zvFq1e3AFkdhfiJ0ahwUKxrwRh..','TenagaAhli',1,NULL,'2017-06-05 05:01:39','2017-06-06 16:18:22'),
 (4,'Rizqika','rizqikaamalia.ra@gmail.com','rizqikaamalia.ra@gmail.com','$2y$10$lyj7SXXWPGoAH4Wbiso.UetMZT/h1LNZe3.3pWvXS8RBBqFdkGhAW','SuperAdmin',1,'','2017-06-08 04:14:35','2017-06-08 04:14:35');

@@ -18,7 +18,7 @@
 @endif
                                     <div class="row modal-mob-btn">
                                         <div class="col-sm-6">
-                                            <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#sign-in-modal">Tambah</button>
+                                            <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#forminput">Tambah</button>
                                         </div>
                                         <div class="col-sm-6">
                                             <button class="btn btn-inverse btn-lg btn-block" data-toggle="modal" data-target="#pwd-recovery">Download</button>
@@ -68,6 +68,103 @@
                                     </div>
                                   </div>               
                                 </div>
+
+    <!-- Sign in modal start -->
+    <div class="modal fade" id="forminput" role="dialog">
+        <div id="ontopmodal"></div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Form Kegiatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="store" method="POST">
+                <div class="modal-body p-b-0">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <label class="col-form-label">No Kegiatan</label>
+                            <input type="text" class="form-control" name="noproyek" id="noproyek" placeholder="Nomor Kegiatan">
+                            <span class="messages"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <label class="col-form-label">Nama Kegiatan</label>
+                            <input type="text" class="form-control" name="proyek" id="proyek" placeholder="Nama Kegiatan">
+                            <span class="messages"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <label class="col-form-label">Nama Singkatan</label>
+                            <input type="text" class="form-control" name="singkatnama" id="singkatnama" placeholder="Singkatan Nama Kegiatan">
+                            <span class="messages"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <label class="col-form-label">Tanggal</label>
+                            <input type="text" name="daterange" id="daterange" class="form-control" value="01/01/2017 - 08/17/2017" />
+                            <span class="messages"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <label class="col-form-label">Anggaran</label>
+                            <input type="text" class="form-control currency" name="anggaran" id="anggaran" placeholder="Anggaran Biaya Kegiatan">
+                            <span class="messages"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <label class="col-form-label">Warna</label>
+                            <input type="text" name="warna" class="form-control warna" value="#0088cc">
+                            <span class="messages"></span>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <label class="col-form-label">Photo</label>
+                            <input type="file" class="form-control" name="files[]" id="filer_input" multiple="multiple" placeholder="Photo Kegiatan">
+                            <span class="messages"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <label class="col-form-label">Keterangan</label>
+                            <textarea class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan Kegiatan"></textarea>
+                            <span class="messages"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="status" id="status-1" value="1" checked=""> Aktif
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="status" id="status-2" value="0"> Nonaktif
+                                </label>
+                            </div>
+                            <span class="messages"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary m-b-0">Simpan</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Sign in modal end -->
 @endsection
 
 @push('cssplugins')
@@ -79,6 +176,19 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/sweetalert/dist/sweetalert.css') }}">
     <!-- animation nifty modal window effects css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/component.css') }}">
+
+    <!-- FORM -->
+    <!-- j-pro js -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/pages/j-pro/css/j-forms.css') }}">
+    <!-- Date-range picker css  -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}" />
+    <!-- Color Picker css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/spectrum/spectrum.css') }}" />
+    <!-- Mini-color css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/jquery-minicolors/jquery.minicolors.css') }}" />
+    <!-- jquery file upload Frame work -->
+    <link href="{{ asset('bower_components/jquery.filer/css/jquery.filer.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bower_components/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css') }}" type="text/css" rel="stylesheet" />
 @endpush
 @push('jsplugins')
     <!-- data-table js -->
@@ -96,6 +206,18 @@
     <!-- sweet alert js -->
     <script type="text/javascript" src="{{ asset('bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
     <!-- sweet alert modal.js intialize js -->
+
+    <!-- FORM -->
+    <!-- j-pro js -->
+    <script type="text/javascript" src="{{ asset('assets/pages/j-pro/js/autoNumeric.js') }}"></script>
+    <!-- Date-range picker js -->
+    <script type="text/javascript" src="{{ asset('assets/pages/advance-elements/moment-with-locales.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+    <!-- Mini-color js -->
+    <script type="text/javascript" src="{{ asset('bower_components/jquery-minicolors/jquery.minicolors.min.js') }}"></script>
+    <!-- jquery file upload js -->
+    <script src="{{ asset('bower_components/jquery.filer/js/jquery.filer.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/custom/proyek.js') }}"></script>
 @endpush

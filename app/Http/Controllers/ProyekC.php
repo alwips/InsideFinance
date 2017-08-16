@@ -24,8 +24,22 @@ class ProyekC extends Controller
 
     public function store(Request $request)
     {
-        
-        $proyek = ProyekM::create($request->all());
+       
+        $proyek = new ProyekM;
+        $proyek->noproyek = $request->noproyek;
+        $proyek->proyek = $request->proyek;
+        $proyek->singkatnama = $request->singkatnama;
+        $daterange = explode(' - ', $request->daterange);
+        $sdate = explode('/', $daterange[0]);
+        $edate = explode('/', $daterange[1]);
+        $proyek->startdate = $sdate[2].'-'.$sdate[1].'-'.$sdate[0];
+        $proyek->duedate = $edate[2].'-'.$edate[1].'-'.$edate[0];
+        $proyek->anggaran = $request->anggaran;
+        $proyek->color = $request->warna;
+        $proyek->photo = implode(',',$request->photo);
+        $proyek->keterangan = $request->keterangan;
+        $proyek->status = $request->status;
+        $proyek = $proyek->save();
 
         if($proyek)
             $data = array('status'=>'success','msg'=>'Proyek Baru telah ditambahkan !');

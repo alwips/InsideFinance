@@ -81,3 +81,7 @@ Route::group(['prefix' => 'user'], function () {
 	Route::patch('enable/{id}','UserC@enable');
 	Route::patch('disable/{id}','UserC@disable');
 });
+Route::group(['prefix' => 'uploads'], function () {
+	Route::post('kegiatan','Uploader@kegiatan');
+	Route::post('delkegiatan','Uploader@delkegiatan');
+});
