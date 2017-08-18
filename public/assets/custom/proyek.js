@@ -368,8 +368,11 @@ jQuery(document).ready(function($) {
 });
 
 $(document).ready(function(){
-    $('.currency').autoNumeric('init');
+    $('.currency').autoNumeric('init', {aSep: '.', aDec: ','});
     $('input[name="daterange"]').daterangepicker({
+        locale: {
+          format: 'DD/MM/YYYY'
+        },
         parentEl : $('#ontopmodal'),
     });
 });

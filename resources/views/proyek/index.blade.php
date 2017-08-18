@@ -106,7 +106,7 @@
                     <div class="form-group row">
                         <div class="col-sm-12">
                         <label class="col-form-label">Tanggal</label>
-                            <input type="text" name="daterange" id="daterange" class="form-control" value="01/01/2017 - 08/17/2017" />
+                            <input type="text" name="daterange" id="daterange" class="form-control" value="" />
                             <span class="messages"></span>
                         </div>
                     </div>

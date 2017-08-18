@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use Helper;
 use App\ProyekM;
 class ProyekC extends Controller
 {
@@ -34,7 +35,7 @@ class ProyekC extends Controller
         $edate = explode('/', $daterange[1]);
         $proyek->startdate = $sdate[2].'-'.$sdate[1].'-'.$sdate[0];
         $proyek->duedate = $edate[2].'-'.$edate[1].'-'.$edate[0];
-        $proyek->anggaran = $request->anggaran;
+        $proyek->anggaran = Helper::rupiahToNum($request->anggaran);
         $proyek->color = $request->warna;
         $proyek->photo = implode(',',$request->photo);
         $proyek->keterangan = $request->keterangan;

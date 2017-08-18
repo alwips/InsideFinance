@@ -176,7 +176,7 @@ CREATE TABLE `password_resets` (
 DROP TABLE IF EXISTS `tbl_alokasi`;
 
 CREATE TABLE `tbl_alokasi` (
-  `idalokasi` int(11) NOT NULL,
+  `idalokasi` int(11) NOT NULL AUTO_INCREMENT,
   `nominal` double DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `keterangan` text,
@@ -401,7 +401,7 @@ insert  into `tbl_item`(`iditem`,`parent`,`nama`,`harga`,`status`,`idsatuan`,`cr
 DROP TABLE IF EXISTS `tbl_koordinasi`;
 
 CREATE TABLE `tbl_koordinasi` (
-  `idkoordinasi` int(11) NOT NULL,
+  `idkoordinasi` int(11) NOT NULL AUTO_INCREMENT,
   `nominal` double DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `keterangan` text,
@@ -423,7 +423,7 @@ CREATE TABLE `tbl_koordinasi` (
 DROP TABLE IF EXISTS `tbl_operasional`;
 
 CREATE TABLE `tbl_operasional` (
-  `idoperasional` int(11) NOT NULL,
+  `idoperasional` int(11) NOT NULL AUTO_INCREMENT,
   `nooperasional` char(1) DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   `keterangan` text,
@@ -440,7 +440,7 @@ CREATE TABLE `tbl_operasional` (
 DROP TABLE IF EXISTS `tbl_operasional_detail`;
 
 CREATE TABLE `tbl_operasional_detail` (
-  `idopsdetail` int(11) NOT NULL,
+  `idopsdetail` int(11) NOT NULL AUTO_INCREMENT,
   `nominal` double DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `keterangan` text,
@@ -462,7 +462,7 @@ CREATE TABLE `tbl_operasional_detail` (
 DROP TABLE IF EXISTS `tbl_proyek`;
 
 CREATE TABLE `tbl_proyek` (
-  `idproyek` int(11) NOT NULL,
+  `idproyek` int(11) NOT NULL AUTO_INCREMENT,
   `noproyek` char(10) DEFAULT NULL,
   `proyek` varchar(255) DEFAULT NULL,
   `singkatnama` varchar(100) DEFAULT NULL,
@@ -485,7 +485,7 @@ CREATE TABLE `tbl_proyek` (
 DROP TABLE IF EXISTS `tbl_rab`;
 
 CREATE TABLE `tbl_rab` (
-  `idrab` int(11) NOT NULL,
+  `idrab` int(11) NOT NULL AUTO_INCREMENT,
   `nominal` double DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `keterangan` text,
@@ -503,7 +503,7 @@ CREATE TABLE `tbl_rab` (
 DROP TABLE IF EXISTS `tbl_realisasi_alokasi`;
 
 CREATE TABLE `tbl_realisasi_alokasi` (
-  `idrealalok` int(11) NOT NULL,
+  `idrealalok` int(11) NOT NULL AUTO_INCREMENT,
   `nominal` double DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `keterangan` text,
@@ -525,7 +525,7 @@ CREATE TABLE `tbl_realisasi_alokasi` (
 DROP TABLE IF EXISTS `tbl_realisasi_koordinasi`;
 
 CREATE TABLE `tbl_realisasi_koordinasi` (
-  `idrealkoor` int(11) NOT NULL,
+  `idrealkoor` int(11) NOT NULL AUTO_INCREMENT,
   `nominal` double DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `keterangan` text,
@@ -547,7 +547,7 @@ CREATE TABLE `tbl_realisasi_koordinasi` (
 DROP TABLE IF EXISTS `tbl_realisasi_operasional`;
 
 CREATE TABLE `tbl_realisasi_operasional` (
-  `idrealops` int(11) NOT NULL,
+  `idrealops` int(11) NOT NULL AUTO_INCREMENT,
   `norealops` char(1) DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   `keterangan` text,
@@ -567,7 +567,7 @@ CREATE TABLE `tbl_realisasi_operasional` (
 DROP TABLE IF EXISTS `tbl_realisasi_operasional_dtl`;
 
 CREATE TABLE `tbl_realisasi_operasional_dtl` (
-  `idrealopsdtl` int(11) NOT NULL,
+  `idrealopsdtl` int(11) NOT NULL AUTO_INCREMENT,
   `nominal` double DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `keterangan` text,
@@ -589,7 +589,7 @@ CREATE TABLE `tbl_realisasi_operasional_dtl` (
 DROP TABLE IF EXISTS `tbl_realisasi_proyek`;
 
 CREATE TABLE `tbl_realisasi_proyek` (
-  `idrealproyek` int(11) NOT NULL,
+  `idrealproyek` int(11) NOT NULL AUTO_INCREMENT,
   `norealisasi` char(1) DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   `keterangan` text,
